@@ -1,5 +1,5 @@
 """
-Class to train contrastive encoder in Self-Supervised setting.
+Class to learn representations in Self-Supervised setting.
 Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1
@@ -107,7 +107,7 @@ class BYOLModel:
         # Compute total number of batches per epoch
         self.total_batches = len(train_loader)
         print(f"Total number of samples / batches in training set: {len(train_loader.dataset)} / {len(train_loader)}")
-        # Start joint training of contrastive_encoder, and/or classifier
+        # Start training
         for epoch in range(self.options["epochs"]):
             # Attach progress bar to data_loader to check it during training. "leave=True" gives a new line per epoch
             self.train_tqdm = tqdm(enumerate(train_loader), total=self.total_batches, leave=True)
@@ -119,7 +119,7 @@ class BYOLModel:
                 q, z = self.byol(Xbatch)
                 # Compute reconstruction loss
                 byol_loss = self.byol_loss(q, z)
-                # Get contrastive loss for training per batch
+                # Record training loss per batch
                 self.loss["byol_loss_b"].append(byol_loss.item())
                 # Update the parameters of online network as well as predictor
                 self.update_model(byol_loss, self.optimizer_byol, retain_graph=True)
@@ -194,11 +194,11 @@ class BYOLModel:
         with th.no_grad():
             # Turn on evaluation mode
             self.set_mode(mode="evaluation")
-            # Forward pass on contrastive_encoder
+            # Forward pass on the model
             q, z = self.byol(Xval)
-            # Compute reconstruction loss
+            # Compute loss
             byol_vloss = byol_loss(q, z)
-            # Get contrastive loss for training per batch
+            # Record validation loss per batch
             self.loss["vloss_e"].append(byol_vloss.item())
             # Turn on training mode
             self.set_mode(mode="training")
@@ -209,7 +209,7 @@ class BYOLModel:
     def save_weights(self):
         """
         :return: None
-        Used to save weights of contrastive_encoder, and (if options['supervision'] == 'supervised) Classifier
+        Used to save weights of the model.
         """
         for model_name in self.model_dict:
             th.save(self.model_dict[model_name], self._model_path + "/" + model_name + ".pt")
@@ -231,7 +231,7 @@ class BYOLModel:
         :return: None
         Sanity check to see if the models are constructed correctly.
         """
-        # Summary of contrastive_encoder
+        # Summary of the model architecture
         description  = f"{40*'-'}Summarize models:{40*'-'}\n"
         description += f"{34*'='}{self.options['model_mode'].upper().replace('_', ' ')} Model{34*'='}\n"
         description += f"{self.byol}\n"
