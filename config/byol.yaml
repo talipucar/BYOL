@@ -16,7 +16,7 @@ isDropout: false                  # Set True to use Dropout layer
 dropout_rate: 0.5                 # Set dropout rate if Dropout is being used
 tau: 0.99                         # momentum term for BYOL, temperature term for SimCLR
 learning_rate: 0.001              # Learning rate for training
-epochs: 2                         # Number of epochs to use for training
+epochs: 1                         # Number of epochs to use for training
 batch_size: 2048                  # Set batch size
 cosine_similarity: False          # If True, use cosine similarity in NTXentLoss. Else, use dot product.
 p_norm: 2                         # p-value used for normalization. p=2 for L2 norm, p=1 for L1 norm and so on.

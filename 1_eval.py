@@ -1,12 +1,12 @@
 """
-Main function for training for Autoencoder-based supervised learning.
+Evaluation of the model and baseline performance using linear classifier ( Logistic regression).
 Author: Talip Ucar
-Email: ucabtuc@ucl.ac.uk
+Email: ucabtuc@gmail.com
 Version: 0.1
 """
 
 import mlflow
-from src.model import ContrastiveEncoder, Classifier
+from src.model import BYOLModel
 from utils.load_data import Loader
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -29,14 +29,14 @@ def eval(config):
     """
     # Don't use unlabelled data in train loader
     config["unlabelled_data"] = False
-    # Pre-process, save, and load data. train=False is used to turn of transofrmations for training set.
+    # Pre-process, save, and load data. train=False is used to turn of transformations for training set.
     data_loader = Loader(config, download=True, get_all_train=True, get_all_test=True, train=False)
     # Get data. If check_sample==True, it will show shome images from the training set as a sanity check.
     Xtrain, ytrain, Xtest, ytest, Xtrain2D, Xtest2D = transform_data(data_loader, check_samples=False)
     # Print which dataset we are using
     print(f"{config['dataset']} is being used to test performance.")
     # Get the performance using contrastive encoder
-    contrastive_encoder_performance(Xtrain, ytrain, Xtest, ytest)
+    model_performance(Xtrain, ytrain, Xtest, ytest)
     # Get the baseline performance
     baseline_performance(Xtrain2D, ytrain, Xtest2D, ytest)
 
@@ -52,20 +52,22 @@ def baseline_performance(Xtrain2D, ytrain, Xtest2D, ytest):
     # Baseline performance using PCA
     linear_model_eval(X_train_pca, ytrain, X_test_pca, ytest, description="Baseline Performance")
 
-def contrastive_encoder_performance(Xtrain, ytrain, Xtest, ytest):
+def model_performance(Xtrain, ytrain, Xtest, ytest):
     # Instantiate model
-    model = ContrastiveEncoder(config)
+    model = BYOLModel(config)
     # Load contrastive encoder
     model.load_models()
     # Change the mode to evaluation
     model.set_mode("evaluation")
+    # Extract encoder model
+    encoder = model.byol.online_network.encoder
     # Get representations using Training and Test sets
-    _, h_train = model.contrastive_encoder(Xtrain)
-    _, h_test = model.contrastive_encoder(Xtest)
+    h_train = encoder(Xtrain)
+    h_test = encoder(Xtest)
     # Turn tensors into numpy arrays since they will be used with Logistic regression model
     h_train, h_test = h_train.cpu().detach().numpy(), h_test.cpu().detach().numpy()
     # Get performance
-    linear_model_eval(h_train, ytrain, h_test, ytest, description="SimCLR Performance")
+    linear_model_eval(h_train, ytrain, h_test, ytest, description="BYOL Performance")
 
 def linear_model_eval(X_train, y_train, X_test, y_test, use_scaler=False, description="Baseline: PCA + Logistic Reg."):
     # If true, scale data using scikit-learn scaler

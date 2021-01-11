@@ -1,5 +1,5 @@
 """
-Main function for training for CNN-based encoder using self-supervised learning.
+Main function for training for BYOL model in self-supervised learning setting.
 Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1
