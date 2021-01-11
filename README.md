@@ -1,4 +1,4 @@
-# PyFlow_SimCLR: 
+# PyFlow_BYOL: 
 ##### Author: Talip Ucar (ucabtuc@gmail.com)
 
 Pytorch implementation of BYOL (https://arxiv.org/pdf/2006.07733v1.pdf) with custom Encoder.
