@@ -1,0 +1,24 @@
+---
+resnet: false                     # If True, use resnet backbone
+backbone: resnet18                # Backbone model to use for encoder
+pretrain: false                   # Whether resnet18 should be loaded pre-trained or not (if resnet is being used)
+dims:                             # MLP architecture for projection
+  - 512                           # Needs to be same as the output dimension of encoder (either Resnet, or conv_dims)
+  - 256
+  - 128
+conv_dims:                        # Architecture for Encoder with convolutional layers
+  - [  3,  32, 5, 2, 1, 1]        # i=input channel, o=output channel, k = kernel, s = stride, p = padding, d = dilation
+  - [32,  128, 5, 2, 1, 1]        # [i, o, k, s, p, d]
+  - [128, 512, 5, 2, 1, 1]        # [i, o, k, s, p, d]
+  - 512                           # Dimension of the output. Should be same as input dimension of MLP used for projection
+isBatchNorm: false                # Set True to use BatchNorm layer
+isDropout: false                  # Set True to use Dropout layer
+dropout_rate: 0.5                 # Set dropout rate if Dropout is being used
+tau: 0.99                         # momentum term for BYOL, temperature term for SimCLR
+learning_rate: 0.001              # Learning rate for training
+epochs: 2                         # Number of epochs to use for training
+batch_size: 2048                  # Set batch size
+cosine_similarity: False          # If True, use cosine similarity in NTXentLoss. Else, use dot product.
+p_norm: 2                         # p-value used for normalization. p=2 for L2 norm, p=1 for L1 norm and so on.
+output_dim: 2                     # Classifier output dimension if it is being used. For binary classification, use 2.
+nth_epoch: 1                      # Compute validation loss in every nth_epoch
