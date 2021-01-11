@@ -118,7 +118,7 @@ evaluation is also printed out on the display, and not saved.
 ## Training
 To pre-train the model using STL10 dataset, you can use following command:
 ```
-python 0_train_encoder.py -d "STL10" -img 96
+python 0_train_byol.py -d "STL10" -img 96
 ```
 ## Evaluation
 Once you have a trained model, you can evaluate the model performance on any dataset. Correct image size should be provided
