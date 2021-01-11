@@ -4,7 +4,7 @@ Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1
 
-A wrapper model to be used in the context of Contrastive Predictive Coding framework.
+A wrapper model to be used in the context of Self-Supervised learning framework.
 """
 
 import os
@@ -94,7 +94,7 @@ class BYOLModel:
         :param IterableDataset data_loader: Pytorch data loader.
         :return: None
 
-        Fits model to the data using contrastive learning.
+        Fits model to the data using Self-Supervised learning.
         """
         # Training dataset
         train_loader = data_loader.train_loader

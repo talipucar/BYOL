@@ -1,5 +1,5 @@
 """
-Class to train contrastive encoder in Self-Supervised setting.
+A library of loss functions to be used in Self-Supervised setting.
 Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1

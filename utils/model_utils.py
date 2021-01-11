@@ -3,7 +3,7 @@ Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1
 
-A library of model classes that can used in Contrastive Predictive Coding framework. The list of models:
+A library of model classes that can used in Self-Supervised framework. The list of models:
 
 BYOL:          High-level model that contains Online and Target networks as well as Predictor network.
 EncodeProject: The model class that contain Encoder and Projection networks
@@ -120,7 +120,8 @@ class CNNEncoder(nn.Module):
     :param dict options: Generic dictionary to configure the model for training.
     :return: Representation (h).
 
-    Encoder is used for contrastive learning. It gets transformed images, and returns the representation of the data.
+    Encoder is used for learning representations in Self-Supervised setting.
+    It gets transformed images, and returns the representation of the data.
     """
     def __init__(self, options):
         super(CNNEncoder, self).__init__()
