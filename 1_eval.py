@@ -20,12 +20,8 @@ from utils.utils import set_dirs
 
 def eval(config):
     """
-    :param dict unsupervised_config: Dictionary containing options.
-    :param list training_fold: A list containing k-fold of processed_data.
-    :param bool save_weights: Saves src weights if True.
-    :return:
-
-    Utility function for saving on one training fold.
+    :param dict config: Generic dictionary to configure the model for training.
+    :return: None
     """
     # Don't use unlabelled data in train loader
     config["unlabelled_data"] = False

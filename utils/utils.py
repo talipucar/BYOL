@@ -25,11 +25,12 @@ def create_dir(dir_path):
 
 def set_dirs(config):
     """
-    It sets up directory that will be used to load processed_data and src as well as saving results.
+    It sets up directory that will be used to save results.
     Directory structure:
-          results -> processed_data: contains processed k-fold processed_data file.
-                  -> src: contains saved src, trained on this database
-                  -> results-> training_plots
+          results -> evaluation
+                  -> training -> model_mode -> loss
+                                            -> model
+                                            -> plots
     :return: None
     """
     # Update the config file with model config and flatten runtime config

@@ -1,5 +1,5 @@
 """
-Main function for training for CNN-based encoder using self-supervised learning.
+Setting arguments and configuration to run training and evaluation. Arguments can be provided via command line.
 Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1

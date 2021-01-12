@@ -1,5 +1,5 @@
 """
-A library of loss functions to be used in Self-Supervised setting.
+Various plotting functionality to be used during training and evaluation.
 Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1

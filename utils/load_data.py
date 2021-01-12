@@ -1,5 +1,5 @@
 """
-TODO: Remove Data loader code adapted from https://raw.githubusercontent.com/mdiephuis/SimCLR/master/data.py
+Library of cuntions to transform and load data.
 Author: Talip Ucar
 Email: ucabtuc@gmail.com
 Version: 0.1
